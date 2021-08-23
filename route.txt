@@ -1,0 +1,23 @@
++--------+-----------+------------------+---------------+------------------------------------------------------+-------------------+
+| Domain | Method    | URI              | Name          | Action                                               | Middleware        |
++--------+-----------+------------------+---------------+------------------------------------------------------+-------------------+
+|        | GET|HEAD  | api/users        | users.index   | App\Http\Controllers\Api\User\UserController@index   | api               |
+|        | POST      | api/users        | users.store   | App\Http\Controllers\Api\User\UserController@store   | api               |
+|        |           |                  |               |                                                      | begin.transaction |
+|        | GET|HEAD  | api/users/{user} | users.show    | App\Http\Controllers\Api\User\UserController@show    | api               |
+|        | PUT|PATCH | api/users/{user} | users.update  | App\Http\Controllers\Api\User\UserController@update  | api               |
+|        | DELETE    | api/users/{user} | users.destroy | App\Http\Controllers\Api\User\UserController@destroy | api               |
++--------+-----------+------------------+---------------+------------------------------------------------------+-------------------+
++--------+-----------+----------------------------------+----------------------+------------------------------------------------------+-------------------+
+| Domain | Method    | URI                              | Name                 | Action                                               | Middleware        |
++--------+-----------+----------------------------------+----------------------+------------------------------------------------------+-------------------+
+|        | GET|HEAD  | api/users                        | users.index          | App\Http\Controllers\Api\User\UserController@index   | api               |
+|        | POST      | api/users                        | users.store          | App\Http\Controllers\Api\User\UserController@store   | api               |
+|        |           |                                  |                      |                                                      | begin.transaction |
+|        | GET|HEAD  | api/users/{user}                 | users.show           | App\Http\Controllers\Api\User\UserController@show    | api               |
+|        | PUT|PATCH | api/users/{user}                 | users.update         | App\Http\Controllers\Api\User\UserController@update  | api               |
+|        |           |                                  |                      |                                                      | begin.transaction |
+|        | DELETE    | api/users/{user}                 | users.destroy        | App\Http\Controllers\Api\User\UserController@destroy | api               |
+|        |           |                                  |                      |                                                      | begin.transaction |
+|        | PUT       | api/users/{user}/update-password | users.updatePassword | Closure                                              | api               |
++--------+-----------+----------------------------------+----------------------+------------------------------------------------------+-------------------+
