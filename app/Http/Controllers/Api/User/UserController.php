@@ -15,6 +15,7 @@ use App\Repository\User\UserRepository;
 use App\Services\User\UserStoreService;
 use App\Services\User\UserUpdatePasswordService;
 use App\Services\User\UserUpdateService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -102,7 +103,7 @@ class UserController extends Controller
     /**
      * @param User $user
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      * @throws NotDoneException
      */
     public function destroy(User $user)
@@ -121,7 +122,7 @@ class UserController extends Controller
      * @param UserUpdatePasswordRequest $request
      * @param User                      $user
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      * @throws NotDoneException
      */
     public function updatePassword(UserUpdatePasswordRequest $request, User $user)

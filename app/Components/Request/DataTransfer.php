@@ -3,6 +3,7 @@
 namespace App\Components\Request;
 
 use Illuminate\Support\Arr;
+use stdClass;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
 class DataTransfer
@@ -62,7 +63,7 @@ class DataTransfer
 
         $input = $this->data->all();
 
-        $placeholder = new \stdClass();
+        $placeholder = new stdClass();
 
         foreach (is_array($keys) ? $keys : func_get_args() as $key) {
             $value = data_get($input, $key, $placeholder);

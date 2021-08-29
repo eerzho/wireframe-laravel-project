@@ -7,7 +7,7 @@ use App\Http\Requests\BaseFromRequest\BaseFromRequest;
 class UserUpdatePasswordRequest extends BaseFromRequest
 {
     /**
-     * @return \string[][]
+     * @return string[][]
      */
     public function rules(): array
     {

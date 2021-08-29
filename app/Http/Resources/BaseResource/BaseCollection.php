@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\BaseResource;
 
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -29,7 +30,7 @@ abstract class BaseCollection extends ResourceCollection
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
      * @return array
      */

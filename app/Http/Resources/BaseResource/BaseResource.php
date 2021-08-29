@@ -4,6 +4,8 @@ namespace App\Http\Resources\BaseResource;
 
 use App\Components\DateFormat\DateFormatHelper;
 use Carbon\Carbon;
+use DateTimeInterface;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 abstract class BaseResource extends JsonResource
@@ -11,7 +13,7 @@ abstract class BaseResource extends JsonResource
     abstract public static function getFields(): array;
 
     /**
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
      * @return array
      */
@@ -21,7 +23,7 @@ abstract class BaseResource extends JsonResource
 
         $result = [];
         foreach ($fields as $field) {
-            if ($this->$field instanceof \DateTimeInterface) {
+            if ($this->$field instanceof DateTimeInterface) {
                 /** @var Carbon $date */
                 $date = $this->$field;
                 $result[$field] = $date->format(DateFormatHelper::DATETIME_FORMAT);
