@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,7 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::apiResource('users', \App\Http\Controllers\Api\User\UserController::class);
-Route::group(['prefix' => 'users'], function () {
-    Route::put('/{user}/update-password', [\App\Http\Controllers\Api\User\UserController::class, 'updatePassword'])->name('users.updatePassword');
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
 });
