@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests\User;
 
-use App\Http\Requests\BaseFromRequest\BaseFromRequest;
 use Illuminate\Validation\Rule;
 
-class UserStoreRequest extends BaseFromRequest
+class UserStoreRequest
 {
     /**
      * @return array

@@ -2,14 +2,13 @@
 
 namespace App\Http\Requests\User;
 
-use App\Http\Requests\BaseFromRequest\BaseFromRequest;
 use App\Models\User\User;
 use Illuminate\Validation\Rule;
 
 /**
  * @property User $user
  */
-class UserUpdateRequest extends BaseFromRequest
+class UserUpdateRequest
 {
     /**
      * @return array
@@ -37,7 +36,7 @@ class UserUpdateRequest extends BaseFromRequest
                 Rule::unique('users', 'username')
                     ->ignore($this->user->id)
             ],
-            'email' => [
+            'email'      => [
                 'required',
                 'string',
                 'email',

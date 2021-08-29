@@ -3,6 +3,8 @@
 namespace Database\Seeders\User;
 
 use App\Models\User\User;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -15,7 +17,7 @@ class UserSeeder extends Seeder
     /**
      * @param int $num
      *
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     * @return Collection|Model
      */
     public static function createUser(int $num = 1)
     {

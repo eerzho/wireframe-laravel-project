@@ -2,12 +2,10 @@
 
 namespace App\Http\Requests\User;
 
-use App\Http\Requests\BaseFromRequest\BaseFromRequest;
-
-class UserUpdatePasswordRequest extends BaseFromRequest
+class UserUpdatePasswordRequest
 {
     /**
-     * @return \string[][]
+     * @return string[][]
      */
     public function rules(): array
     {
