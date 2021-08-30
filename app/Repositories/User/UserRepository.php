@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository\User;
+namespace App\Repositories\User;
 
 use App\Interfaces\Search\SearchInterface;
 use App\Searches\User\UserSearch;

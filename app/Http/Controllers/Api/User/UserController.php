@@ -11,7 +11,7 @@ use App\Http\Requests\User\UserUpdateRequest;
 use App\Http\Resources\User\UserCollection;
 use App\Http\Resources\User\UserResource;
 use App\Models\User\User;
-use App\Repository\User\UserRepository;
+use App\Repositories\User\UserRepository;
 use App\Services\User\UserStoreService;
 use App\Services\User\UserUpdatePasswordService;
 use App\Services\User\UserUpdateService;
