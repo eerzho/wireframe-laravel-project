@@ -14,6 +14,8 @@ trait ResponseTrait
      */
     public function response(array $data, int $code = 200)
     {
-        return response()->json($data, $code);
+        return response()->json([
+            'data' => $data
+        ], $code);
     }
 }

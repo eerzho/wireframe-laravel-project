@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use DateTimeInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 abstract class BaseResource extends JsonResource
 {
@@ -33,5 +34,22 @@ abstract class BaseResource extends JsonResource
         }
 
         return $result;
+    }
+
+    /**
+     * @param mixed $resource
+     *
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    public static function collection($resource)
+    {
+        if ($resource instanceof LengthAwarePaginator) {
+            header('x-pagination-total:' . $resource->total());
+            header('x-pagination-current-page:' . $resource->currentPage());
+            header('x-pagination-per-page:' . $resource->perPage());
+            $resource = $resource->getCollection();
+        }
+
+        return parent::collection($resource);
     }
 }

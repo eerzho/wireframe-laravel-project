@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UserStoreRequest;
 use App\Http\Requests\User\UserUpdatePasswordRequest;
 use App\Http\Requests\User\UserUpdateRequest;
-use App\Http\Resources\User\UserCollection;
 use App\Http\Resources\User\UserResource;
 use App\Models\User\User;
 use App\Repositories\User\UserRepository;
@@ -39,13 +38,13 @@ class UserController extends Controller
     /**
      * @param Request $request
      *
-     * @return UserCollection
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index(Request $request)
     {
         $builder = $this->userRepository->search($request)->getQuery();
 
-        return new UserCollection($builder->paginate());
+        return UserResource::collection($builder->paginate());
     }
 
     /**
