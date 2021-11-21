@@ -62,13 +62,11 @@ abstract class BaseSearch
     private function applyDecoratorsFromRequest(): Builder
     {
         foreach ($this->searches as $filterName => $value) {
-
-            $decorator = $this->createFilterDecorator($filterName);
-
-            if (class_exists($decorator)) {
+            if (class_exists($decorator = $this->createFilterDecorator($filterName))) {
+                $this->builder = $decorator::apply($this->builder, $value);
+            } elseif (class_exists($decorator = $this->createFilterDecorator($filterName, true))) {
                 $this->builder = $decorator::apply($this->builder, $value);
             }
-
         }
 
         if (in_array($this->sort, $this->getSorts())) {
@@ -84,13 +82,14 @@ abstract class BaseSearch
     }
 
     /**
-     * @param $name
+     * @param string $name
+     * @param bool   $default
      *
      * @return string
      */
-    private function createFilterDecorator($name): string
+    private function createFilterDecorator(string $name, bool $default = false): string
     {
-        return $this->getNamespace() . '\\Filters\\' . Str::studly($name);
+        return ($default ? __NAMESPACE__ : $this->getNamespace()) . '\\Filters\\' . Str::studly($name);
     }
 
     /**

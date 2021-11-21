@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Searches\BaseSearch\BaseFilters;
+namespace App\Searches\BaseSearch\Filters;
 
 use App\Interfaces\Filter\FilterInterface;
 use Illuminate\Database\Eloquent\Builder;
