@@ -23,8 +23,10 @@ abstract class BaseResource extends JsonResource
         $fields = $this->getFields();
 
         $result = [];
-        foreach ($fields as $field) {
-            if ($this->$field instanceof DateTimeInterface) {
+        foreach ($fields as $key => $field) {
+            if (class_exists($field)) {
+                $result[$key] = new $field($this->$key);
+            } elseif ($this->$field instanceof DateTimeInterface) {
                 /** @var Carbon $date */
                 $date = $this->$field;
                 $result[$field] = $date->format(DateFormatHelper::DATETIME_FORMAT);
@@ -44,9 +46,9 @@ abstract class BaseResource extends JsonResource
     public static function collection($resource)
     {
         if ($resource instanceof LengthAwarePaginator) {
-            header('x-pagination-total:' . $resource->total());
-            header('x-pagination-current-page:' . $resource->currentPage());
-            header('x-pagination-per-page:' . $resource->perPage());
+            header('X-Pagination-Total:' . $resource->total());
+            header('X-Pagination-Current-Page:' . $resource->currentPage());
+            header('X-Pagination-Per-Page:' . $resource->perPage());
             $resource = $resource->getCollection();
         }
 
