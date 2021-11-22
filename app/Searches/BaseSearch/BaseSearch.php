@@ -2,6 +2,7 @@
 
 namespace App\Searches\BaseSearch;
 
+use App\Components\DateFormat\DateFormatHelper;
 use App\Rules\SearchValidateIntegerRule;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -62,8 +63,10 @@ abstract class BaseSearch
     private function applyDecoratorsFromRequest(): Builder
     {
         foreach ($this->searches as $filterName => $value) {
+
             if (class_exists($decorator = $this->createFilterDecorator($filterName))) {
                 $this->builder = $decorator::apply($this->builder, $value);
+
             } elseif (class_exists($decorator = $this->createFilterDecorator($filterName, true))) {
                 $this->builder = $decorator::apply($this->builder, $value);
             }
@@ -113,7 +116,25 @@ abstract class BaseSearch
     protected function validationRules(): array
     {
         return [
-            'id' => new SearchValidateIntegerRule()
+            'id'                         => new SearchValidateIntegerRule(),
+            'period_created_at'          => 'array',
+            'period_created_at.start_at' => [
+                DateFormatHelper::DATETIME_VALIDATOR_FORMAT,
+                'before:period_created_at.end_at',
+            ],
+            'period_created_at.end_at'   => [
+                DateFormatHelper::DATETIME_VALIDATOR_FORMAT,
+                'after:period_created_at.start_at',
+            ],
+            'period_updated_at'          => 'array',
+            'period_updated_at.start_at' => [
+                DateFormatHelper::DATETIME_VALIDATOR_FORMAT,
+                'before:period_updated_at.end_at',
+            ],
+            'period_updated_at.end_at'   => [
+                DateFormatHelper::DATETIME_VALIDATOR_FORMAT,
+                'after:period_updated_at.start_at',
+            ]
         ];
     }
 }
