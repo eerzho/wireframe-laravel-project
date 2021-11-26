@@ -6,6 +6,7 @@ use App\Components\DateFormat\DateFormatHelper;
 use App\Interfaces\Morphable\MorphableInterface;
 use App\Traits\ScopeOfId;
 use Carbon\Carbon;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -21,7 +22,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
-class User extends Authenticatable implements MorphableInterface
+class User extends Authenticatable implements MorphableInterface, MustVerifyEmail
 {
     use HasFactory, Notifiable, ScopeOfId, HasApiTokens;
 

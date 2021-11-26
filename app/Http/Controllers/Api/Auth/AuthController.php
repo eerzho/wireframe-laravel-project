@@ -23,6 +23,7 @@ class AuthController extends Controller
     {
         $this->middleware('auth:sanctum')->only(['me', 'logout']);
         $this->middleware('begin.transaction')->only(['login', 'logout']);
+        $this->middleware('email.verified')->only(['me']);
     }
 
     /**
@@ -76,7 +77,13 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        if (Auth::user()->currentAccessToken()->delete()) {
+        /** @var User $user */
+        $user = Auth::user();
+
+        /** @var PersonalAccessToken $token */
+        $token = $user->currentAccessToken();
+
+        if ($token->delete()) {
             DB::commit();
 
             return $this->response([]);

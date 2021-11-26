@@ -17,6 +17,10 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('/login', [\App\Http\Controllers\Api\Auth\AuthController::class, 'login']);
     Route::delete('/logout', [\App\Http\Controllers\Api\Auth\AuthController::class, 'logout']);
 });
+Route::group(['prefix' => 'verify'], function () {
+    Route::get('/{id}/{hash}', [\App\Http\Controllers\Api\Verify\VerificationController::class, 'verify'])->name('verification.verify');
+    Route::post('/resend', [\App\Http\Controllers\Api\Verify\VerificationController::class, 'resend']);
+});
 Route::group(['prefix' => 'users'], function () {
     Route::post('/', [\App\Http\Controllers\Api\User\UserController::class, 'index']);
     Route::post('/', [\App\Http\Controllers\Api\User\UserController::class, 'store']);

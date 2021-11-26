@@ -15,6 +15,7 @@ use App\Repositories\User\UserRepository;
 use App\Services\User\UserStoreService;
 use App\Services\User\UserUpdatePasswordService;
 use App\Services\User\UserUpdateService;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -63,6 +64,8 @@ class UserController extends Controller
         if ($isSave) {
 
             DB::commit();
+
+            event(new Registered($user));
 
             return new UserResource($user->refresh());
         }
