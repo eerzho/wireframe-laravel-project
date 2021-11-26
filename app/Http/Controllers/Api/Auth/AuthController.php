@@ -22,7 +22,7 @@ class AuthController extends Controller
     public function __construct()
     {
         $this->middleware('auth:sanctum')->only(['me', 'logout']);
-        $this->middleware('begin.transaction')->only('logout');
+        $this->middleware('begin.transaction')->only(['login', 'logout']);
     }
 
     /**
@@ -34,13 +34,12 @@ class AuthController extends Controller
     }
 
     /**
-     * @param AuthLoginRequest    $request
-     * @param PersonalAccessToken $personalAccessToken
+     * @param AuthLoginRequest $request
      *
      * @return \Illuminate\Http\JsonResponse
      * @throws UnauthorizedException
      */
-    public function login(AuthLoginRequest $request, PersonalAccessToken $personalAccessToken)
+    public function login(AuthLoginRequest $request)
     {
         /** @var User $user */
         if ($username = $request->post('username')) {
@@ -50,9 +49,10 @@ class AuthController extends Controller
         }
 
         $tokenStoreService = new TokenStoreService(
-            $personalAccessToken,
+            new PersonalAccessToken(),
             new DataTransfer(['user_agent' => $request->server('HTTP_USER_AGENT')]),
-            $user);
+            $user
+        );
 
         $res = Hash::check($request->post('password'), $user->password);
         $res = $res && $tokenStoreService->run();

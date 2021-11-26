@@ -26,7 +26,6 @@ class DbBeginTransaction
 
         if ($response->exception) {
             DB::rollBack();
-            throw $response->exception;
         }
 
         return $response;
