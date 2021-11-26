@@ -9,7 +9,7 @@ use App\Http\Requests\Verify\EmailVerificationRequest;
 use App\Models\User\User;
 use Illuminate\Support\Facades\Auth;
 
-class VerificationController extends Controller
+class VerifyController extends Controller
 {
     public function __construct()
     {

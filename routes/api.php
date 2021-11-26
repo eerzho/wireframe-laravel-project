@@ -18,8 +18,8 @@ Route::group(['prefix' => 'auth'], function () {
     Route::delete('/logout', [\App\Http\Controllers\Api\Auth\AuthController::class, 'logout']);
 });
 Route::group(['prefix' => 'verify'], function () {
-    Route::get('/{id}/{hash}', [\App\Http\Controllers\Api\Verify\VerificationController::class, 'verify'])->name('verification.verify');
-    Route::post('/resend', [\App\Http\Controllers\Api\Verify\VerificationController::class, 'resend']);
+    Route::get('/{id}/{hash}', [\App\Http\Controllers\Api\Verify\VerifyController::class, 'verify'])->name('verification.verify');
+    Route::post('/resend', [\App\Http\Controllers\Api\Verify\VerifyController::class, 'resend']);
 });
 Route::group(['prefix' => 'users'], function () {
     Route::post('/', [\App\Http\Controllers\Api\User\UserController::class, 'index']);
