@@ -2,20 +2,27 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
+use App\Components\Request\DataTransfer;
+use App\Constants\Messages\ExceptionMessage;
+use App\Exceptions\NotDoneException;
 use App\Exceptions\UnauthorizedException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\AuthLoginRequest;
 use App\Http\Resources\User\UserResource;
-use App\Messages\ExceptionMessage;
 use App\Models\User\User;
 use App\Repositories\User\UserRepository;
+use App\Services\Auth\TokenStoreService;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class AuthController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:sanctum')->only('me');
+        $this->middleware('auth:sanctum')->only(['me', 'logout']);
+        $this->middleware('begin.transaction')->only('logout');
     }
 
     /**
@@ -27,35 +34,54 @@ class AuthController extends Controller
     }
 
     /**
-     * @param AuthLoginRequest $request
+     * @param AuthLoginRequest    $request
+     * @param PersonalAccessToken $personalAccessToken
      *
      * @return \Illuminate\Http\JsonResponse
      * @throws UnauthorizedException
      */
-    public function login(AuthLoginRequest $request)
+    public function login(AuthLoginRequest $request, PersonalAccessToken $personalAccessToken)
     {
-        $data = [];
-        if ($request->has('username')) {
-            $data['username'] = $request->get('username');
-        } elseif ($request->has('email')) {
-            $data['email'] = $request->get('email');
+        /** @var User $user */
+        if ($username = $request->post('username')) {
+            $user = app(UserRepository::class)->getByUsername($username);
+        } elseif ($email = $request->post('email')) {
+            $user = app(UserRepository::class)->getByEmail($email);
         }
-        $data['password'] = $request->get('password');
 
-        if (Auth::attempt($data)) {
-            $userRepository = app(UserRepository::class);
+        $tokenStoreService = new TokenStoreService(
+            $personalAccessToken,
+            new DataTransfer(['user_agent' => $request->server('HTTP_USER_AGENT')]),
+            $user);
 
-            /** @var User $user */
-            $user = array_key_exists('username', $data) ?
-                $userRepository->getByUsername($data['username']) :
-                $userRepository->getByEmail($data['email']);
+        $res = Hash::check($request->post('password'), $user->password);
+        $res = $res && $tokenStoreService->run();
+
+        if ($res) {
+
+            DB::commit();
 
             return $this->response([
                 'type'  => 'Bearer',
-                'token' => $user->createToken($request->server('HTTP_USER_AGENT'))->plainTextToken,
+                'token' => $tokenStoreService->getPlainTextToken(),
             ]);
         }
 
-        throw new UnauthorizedException(ExceptionMessage::FAIL_AUTH);
+        throw new UnauthorizedException(ExceptionMessage::INVALID_PASSWORD);
+    }
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     * @throws NotDoneException
+     */
+    public function logout()
+    {
+        if (Auth::user()->currentAccessToken()->delete()) {
+            DB::commit();
+
+            return $this->response([]);
+        }
+
+        throw new NotDoneException(ExceptionMessage::FAIL_LOGOUT);
     }
 }

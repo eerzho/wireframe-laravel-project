@@ -28,7 +28,7 @@ class SearchValidateIntegerRule implements Rule
     }
 
     /**
-     * @return array|string
+     * @return string
      */
     public function message()
     {

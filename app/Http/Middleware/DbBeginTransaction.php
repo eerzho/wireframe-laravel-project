@@ -14,7 +14,7 @@ class DbBeginTransaction
      * @param Request  $request
      * @param Closure $next
      *
-     * @return mixed
+     * @return JsonResponse
      * @throws Throwable
      */
     public function handle(Request $request, Closure $next)

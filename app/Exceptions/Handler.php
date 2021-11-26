@@ -2,7 +2,10 @@
 
 namespace App\Exceptions;
 
+use App\Constants\Messages\ExceptionMessage;
+use App\Interfaces\BaseException\BaseExceptionInterface;
 use App\Traits\ResponseTrait;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -42,7 +45,19 @@ class Handler extends ExceptionHandler
         $this->renderable(function (Throwable $exception, Request $request) {
             if ($request->is('api/*')) {
                 if ($exception instanceof NotFoundHttpException) {
-                    return $this->response(['message' => 'Not Found'], 404);
+                    return $this->response([
+                        'message' => 'Not Found'
+                    ], 404);
+                }
+                if ($exception instanceof BaseExceptionInterface) {
+                    return $this->response([
+                        'message' => $exception->getMessage()
+                    ], $exception->getCode());
+                }
+                if ($exception instanceof AuthenticationException) {
+                    return $this->response([
+                        'message' => ExceptionMessage::UN_AUTH
+                    ], 401);
                 }
             }
         });

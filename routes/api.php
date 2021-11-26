@@ -13,12 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::group(['prefix' => 'auth'], function () {
-    Route::post('/login', [\App\Http\Controllers\Api\Auth\AuthController::class, 'login']);
     Route::get('/me', [\App\Http\Controllers\Api\Auth\AuthController::class, 'me']);
+    Route::post('/login', [\App\Http\Controllers\Api\Auth\AuthController::class, 'login']);
+    Route::delete('/logout', [\App\Http\Controllers\Api\Auth\AuthController::class, 'logout']);
 });
 Route::group(['prefix' => 'users'], function () {
     Route::post('/', [\App\Http\Controllers\Api\User\UserController::class, 'index']);
-    Route::post('/', [\App\Http\Controllers\Api\User\UserController::class, 'post']);
+    Route::post('/', [\App\Http\Controllers\Api\User\UserController::class, 'store']);
     Route::get('/{user}', [\App\Http\Controllers\Api\User\UserController::class, 'show']);
     Route::patch('/{user}', [\App\Http\Controllers\Api\User\UserController::class, 'update']);
     Route::delete('/{user}', [\App\Http\Controllers\Api\User\UserController::class, 'destroy']);

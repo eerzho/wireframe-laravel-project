@@ -3,6 +3,7 @@
 namespace App\Models\User;
 
 use App\Components\DateFormat\DateFormatHelper;
+use App\Interfaces\Morphable\MorphableInterface;
 use App\Traits\ScopeOfId;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,7 +21,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
-class User extends Authenticatable
+class User extends Authenticatable implements MorphableInterface
 {
     use HasFactory, Notifiable, ScopeOfId, HasApiTokens;
 
