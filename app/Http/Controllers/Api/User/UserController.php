@@ -9,6 +9,7 @@ use App\Http\Requests\User\UserStoreRequest;
 use App\Http\Requests\User\UserUpdatePasswordRequest;
 use App\Http\Requests\User\UserUpdateRequest;
 use App\Http\Resources\User\UserResource;
+use App\Messages\ExceptionMessage;
 use App\Models\User\User;
 use App\Repositories\User\UserRepository;
 use App\Services\User\UserStoreService;
@@ -31,6 +32,7 @@ class UserController extends Controller
     public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
+        $this->middleware('auth:sanctum')->except('store');
         $this->middleware('begin.transaction')
             ->only(['store', 'update', 'destroy', 'updatePassword']);
     }
@@ -65,7 +67,7 @@ class UserController extends Controller
             return new UserResource($user->refresh());
         }
 
-        throw new NotDoneException('Не удалось сохранить');
+        throw new NotDoneException(ExceptionMessage::FAIL_SAVE);
     }
 
     /**
@@ -96,7 +98,7 @@ class UserController extends Controller
             return new UserResource($user->refresh());
         }
 
-        throw new NotDoneException('Не удалось сохранить');
+        throw new NotDoneException(ExceptionMessage::FAIL_UPDATE);
     }
 
     /**
@@ -114,7 +116,7 @@ class UserController extends Controller
             return $this->response([]);
         }
 
-        throw new NotDoneException('Не удалось удалить');
+        throw new NotDoneException(ExceptionMessage::FAIL_DELETE);
     }
 
     /**
@@ -135,6 +137,6 @@ class UserController extends Controller
             return $this->response([]);
         }
 
-        throw new NotDoneException('Не удалось изменить пароль');
+        throw new NotDoneException(ExceptionMessage::FAIL_UPDATE);
     }
 }

@@ -3,8 +3,8 @@
 namespace App\Models\BaseModel;
 
 use App\Components\DateFormat\DateFormatHelper;
+use App\Traits\ScopeOfId;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -14,19 +14,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class BaseModel extends Model
 {
+    use ScopeOfId;
+
     protected $casts = [
         'created_at' => DateFormatHelper::CAST_DATETIME_FORMAT,
         'updated_at' => DateFormatHelper::CAST_DATETIME_FORMAT
     ];
-
-    /**
-     * @param Builder $builder
-     * @param int     $id
-     *
-     * @return Builder
-     */
-    public function scopeOfId(Builder $builder, int $id)
-    {
-        return $builder->where('id', $id);
-    }
 }

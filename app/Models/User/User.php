@@ -3,10 +3,12 @@
 namespace App\Models\User;
 
 use App\Components\DateFormat\DateFormatHelper;
+use App\Traits\ScopeOfId;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 /**
  * @property int    $id
@@ -20,7 +22,7 @@ use Illuminate\Notifications\Notifiable;
  */
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, ScopeOfId, HasApiTokens;
 
     protected $fillable = [
         'first_name',
