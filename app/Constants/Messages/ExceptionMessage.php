@@ -12,4 +12,5 @@ class ExceptionMessage
     const UN_AUTH            = 'Авторизуйтесь';
     const EMAIL_VERIFIED     = 'Почта подтверждена';
     const EMAIL_NOT_VERIFIED = 'Почта не подтверждена';
+    const INVALID_TOKEN      = 'Не правильный токен';
 }

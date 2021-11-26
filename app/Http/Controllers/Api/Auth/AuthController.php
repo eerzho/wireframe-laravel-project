@@ -7,7 +7,9 @@ use App\Constants\Messages\ExceptionMessage;
 use App\Exceptions\NotDoneException;
 use App\Exceptions\UnauthorizedException;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\AuthForgotRequest;
 use App\Http\Requests\Auth\AuthLoginRequest;
+use App\Http\Requests\Auth\AuthResetRequest;
 use App\Http\Resources\User\UserResource;
 use App\Models\User\User;
 use App\Repositories\User\UserRepository;
@@ -15,6 +17,7 @@ use App\Services\Auth\TokenStoreService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 use Laravel\Sanctum\PersonalAccessToken;
 
 class AuthController extends Controller
@@ -90,5 +93,37 @@ class AuthController extends Controller
         }
 
         throw new NotDoneException(ExceptionMessage::FAIL_LOGOUT);
+    }
+
+    /**
+     * @param AuthForgotRequest $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function forgot(AuthForgotRequest $request)
+    {
+        Password::sendResetLink($request->validated());
+
+        return $this->response([]);
+    }
+
+    /**
+     * @param AuthResetRequest $request
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws NotDoneException
+     */
+    public function reset(AuthResetRequest $request)
+    {
+        $res = Password::reset($request->post(), function (User $user, $password) {
+            $user->password = Hash::make($password);
+            $user->save();
+        });
+
+        if ($res == Password::INVALID_TOKEN) {
+            throw new NotDoneException(ExceptionMessage::INVALID_TOKEN);
+        }
+
+        return view('welcome');
     }
 }
