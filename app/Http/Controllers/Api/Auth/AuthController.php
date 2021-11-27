@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Components\Request\DataTransfer;
 use App\Constants\Messages\ExceptionMessage;
+use App\Events\DeleteToken;
 use App\Exceptions\NotDoneException;
 use App\Exceptions\UnauthorizedException;
 use App\Http\Controllers\Controller;
@@ -14,6 +15,7 @@ use App\Http\Resources\User\UserResource;
 use App\Models\User\User;
 use App\Repositories\User\UserRepository;
 use App\Services\Auth\TokenStoreService;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -99,12 +101,18 @@ class AuthController extends Controller
      * @param AuthForgotRequest $request
      *
      * @return \Illuminate\Http\JsonResponse
+     * @throws NotDoneException
      */
     public function forgot(AuthForgotRequest $request)
     {
-        Password::sendResetLink($request->validated());
+        $res = Password::sendResetLink($request->validated());
 
-        return $this->response([]);
+        if ($res === Password::RESET_LINK_SENT) {
+
+            return $this->response([]);
+        }
+
+        throw new NotDoneException(ExceptionMessage::FAIL_SEND_EMAIL);
     }
 
     /**
@@ -118,6 +126,9 @@ class AuthController extends Controller
         $res = Password::reset($request->post(), function (User $user, $password) {
             $user->password = Hash::make($password);
             $user->save();
+
+            event(new PasswordReset($user));
+            event(new DeleteToken($user));
         });
 
         if ($res == Password::INVALID_TOKEN) {

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Events\DeleteToken;
+use App\Listeners\DeleteTokenListener;
 use App\Models\User\User;
 use App\Observers\User\UserObserver;
 use Illuminate\Auth\Events\Registered;
@@ -16,9 +18,12 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        Registered::class => [
+        Registered::class  => [
             SendEmailVerificationNotification::class,
         ],
+        DeleteToken::class => [
+            DeleteTokenListener::class,
+        ]
     ];
 
     /**
