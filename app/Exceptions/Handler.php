@@ -8,6 +8,7 @@ use App\Traits\ResponseTrait;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
@@ -58,6 +59,11 @@ class Handler extends ExceptionHandler
                     return $this->response([
                         'message' => ExceptionMessage::UN_AUTH
                     ], 401);
+                }
+                if ($exception instanceof AccessDeniedHttpException) {
+                    return $this->response([
+                        'message' => $exception->getMessage()
+                    ], 403);
                 }
             }
         });

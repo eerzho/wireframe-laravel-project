@@ -4,6 +4,7 @@ namespace App\Models\User;
 
 use App\Components\DateFormat\DateFormatHelper;
 use App\Interfaces\Morphable\MorphableInterface;
+use App\Models\User\Checkers\UserChecker;
 use App\Traits\ScopeOfId;
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -44,4 +45,14 @@ class User extends Authenticatable implements MorphableInterface, MustVerifyEmai
         'created_at'        => DateFormatHelper::CAST_DATETIME_FORMAT,
         'updated_at'        => DateFormatHelper::CAST_DATETIME_FORMAT
     ];
+
+    private $checker;
+
+    /**
+     * @return UserChecker
+     */
+    public function getChecker()
+    {
+        return $this->checker ?: $this->checker = new UserChecker($this);
+    }
 }

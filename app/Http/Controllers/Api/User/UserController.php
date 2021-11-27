@@ -41,9 +41,12 @@ class UserController extends Controller
      * @param Request $request
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index(Request $request)
     {
+        $this->authorize('view-any', User::class);
+
         $builder = $this->userRepository->search($request)->getQuery();
 
         return UserResource::collection($builder->paginate());
@@ -74,9 +77,12 @@ class UserController extends Controller
      * @param User $user
      *
      * @return UserResource
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(User $user)
     {
+        $this->authorize('view', $user);
+
         return new  UserResource($user);
     }
 
@@ -85,10 +91,12 @@ class UserController extends Controller
      * @param User              $user
      *
      * @return UserResource
-     * @throws NotDoneException
+     * @throws NotDoneException|\Illuminate\Auth\Access\AuthorizationException
      */
     public function update(UserUpdateRequest $request, User $user)
     {
+        $this->authorize('update', $user);
+
         $isSave = (new UserUpdateService($user, new DataTransfer($request->validated())))->run();
 
         if ($isSave) {
@@ -105,10 +113,12 @@ class UserController extends Controller
      * @param User $user
      *
      * @return JsonResponse
-     * @throws NotDoneException
+     * @throws NotDoneException|\Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(User $user)
     {
+        $this->authorize('delete', $user);
+
         if ($user->delete()) {
 
             DB::commit();
@@ -124,10 +134,12 @@ class UserController extends Controller
      * @param User                      $user
      *
      * @return JsonResponse
-     * @throws NotDoneException
+     * @throws NotDoneException|\Illuminate\Auth\Access\AuthorizationException
      */
     public function updatePassword(UserUpdatePasswordRequest $request, User $user)
     {
+        $this->authorize('update', $user);
+
         $isSave = (new UserUpdatePasswordService($user, new DataTransfer($request->validated())))->run();
 
         if ($isSave) {
