@@ -25,7 +25,7 @@ Route::group(['prefix' => 'verify'], function () {
     Route::post('/resend', [\App\Http\Controllers\Api\Verify\VerifyController::class, 'resend']);
 });
 Route::group(['prefix' => 'users'], function () {
-    Route::post('/', [\App\Http\Controllers\Api\User\UserController::class, 'index']);
+    Route::get('/', [\App\Http\Controllers\Api\User\UserController::class, 'index']);
     Route::post('/', [\App\Http\Controllers\Api\User\UserController::class, 'store']);
     Route::get('/{user}', [\App\Http\Controllers\Api\User\UserController::class, 'show']);
     Route::patch('/{user}', [\App\Http\Controllers\Api\User\UserController::class, 'update']);
