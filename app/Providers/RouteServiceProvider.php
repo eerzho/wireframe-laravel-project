@@ -15,7 +15,8 @@ class RouteServiceProvider extends ServiceProvider
     const HOME          = '/';
 
     private array $integerRoute = [
-        'user'
+        'user',
+        'role',
     ];
 
     /**
