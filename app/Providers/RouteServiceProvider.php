@@ -88,7 +88,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::prefix(self::API_PREFIX . '/auth')
             ->middleware('api')
-            ->group(base_path('routes/auth.php'));
+            ->group(base_path('routes/api/auth.php'));
     }
 
     /**
@@ -98,6 +98,6 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::prefix(self::API_PREFIX . '/verify')
             ->middleware('api')
-            ->group(base_path('routes/verify.php'));
+            ->group(base_path('routes/api/verify.php'));
     }
 }
