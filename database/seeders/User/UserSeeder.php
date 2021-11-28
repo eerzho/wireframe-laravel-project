@@ -2,6 +2,7 @@
 
 namespace Database\Seeders\User;
 
+use App\Components\UniqueValue\MakeUniqueValue;
 use App\Models\User\User;
 use Illuminate\Database\Seeder;
 
@@ -9,7 +10,10 @@ class UserSeeder extends Seeder
 {
     public function run()
     {
-        self::createUser(30);
+        $users = self::createUser(30);
+
+        self::customizeUser($users->get(0), 'eerzho');
+        self::customizeUser($users->get(1), 'eerzho');
     }
 
     /**
@@ -22,5 +26,20 @@ class UserSeeder extends Seeder
         return User::factory($num)->make()->each(function (User $user) {
             $user->save();
         });
+    }
+
+    /**
+     * @param User   $user
+     * @param string $username
+     *
+     * @return User
+     */
+    private static function customizeUser(User $user, string $username)
+    {
+        $user->username = MakeUniqueValue::getValue('users', 'username', $username);
+
+        $user->save();
+
+        return $user;
     }
 }
