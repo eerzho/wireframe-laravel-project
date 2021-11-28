@@ -33,6 +33,11 @@ class UserUpdateService extends BaseService
         $this->user->first_name = $this->request->get('first_name');
         $this->user->last_name = $this->request->get('last_name');
         $this->user->username = $this->request->get('username');
+
+        if ($email = $this->request->get('email') && $this->user->email != $this->request->get('email')) {
+            $this->user->email = $email;
+            $this->user->email_verified_at = null;
+        }
         $this->user->email = $this->request->get('email');
 
         return $this->user->save();
