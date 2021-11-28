@@ -6,6 +6,11 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use ReflectionClass;
 
+/**
+ * @property array      $constants
+ * @property array      $arr
+ * @property Collection $collection
+ */
 class BaseConst
 {
     private static $contants;
@@ -30,7 +35,7 @@ class BaseConst
         $res = [];
         foreach (self::getConstants() as $key => $value) {
             $res[] = [
-                'name' => Str::lower($key),
+                'name'  => Str::lower($key),
                 'value' => $value
             ];
         }
