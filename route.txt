@@ -1,14 +1,39 @@
-+--------+-----------+----------------------------------+----------------------+-------------------------------------------------------------+-------------------+
-| Domain | Method    | URI                              | Name                 | Action                                                      | Middleware        |
-+--------+-----------+----------------------------------+----------------------+-------------------------------------------------------------+-------------------+
-|        | GET|HEAD  | api/users                        | users.index          | App\Http\Controllers\Api\User\UserController@index          | api               |
-|        | POST      | api/users                        | users.store          | App\Http\Controllers\Api\User\UserController@store          | api               |
-|        |           |                                  |                      |                                                             | begin.transaction |
-|        | GET|HEAD  | api/users/{user}                 | users.show           | App\Http\Controllers\Api\User\UserController@show           | api               |
-|        | PUT|PATCH | api/users/{user}                 | users.update         | App\Http\Controllers\Api\User\UserController@update         | api               |
-|        |           |                                  |                      |                                                             | begin.transaction |
-|        | DELETE    | api/users/{user}                 | users.destroy        | App\Http\Controllers\Api\User\UserController@destroy        | api               |
-|        |           |                                  |                      |                                                             | begin.transaction |
-|        | PUT       | api/users/{user}/update-password | users.updatePassword | App\Http\Controllers\Api\User\UserController@updatePassword | api               |
-|        |           |                                  |                      |                                                             | begin.transaction |
-+--------+-----------+----------------------------------+----------------------+-------------------------------------------------------------+-------------------+
++--------+----------+-------------------------------------+---------------------+----------------------------------------------------------------+--------------------------------------------------------------------+
+| Domain | Method   | URI                                 | Name                | Action                                                         | Middleware                                                         |
++--------+----------+-------------------------------------+---------------------+----------------------------------------------------------------+--------------------------------------------------------------------+
+|        | POST     | api/auth/forgot                     |                     | App\Http\Controllers\Auth\AuthController@forgot                | api                                                                |
+|        | POST     | api/auth/login                      |                     | App\Http\Controllers\Auth\AuthController@login                 | api                                                                |
+|        |          |                                     |                     |                                                                | App\Http\Middleware\DbBeginTransaction                             |
+|        | DELETE   | api/auth/logout                     |                     | App\Http\Controllers\Auth\AuthController@logout                | api                                                                |
+|        |          |                                     |                     |                                                                | App\Http\Middleware\Authenticate:sanctum                           |
+|        |          |                                     |                     |                                                                | App\Http\Middleware\DbBeginTransaction                             |
+|        | GET|HEAD | api/auth/me                         |                     | App\Http\Controllers\Auth\AuthController@me                    | api                                                                |
+|        |          |                                     |                     |                                                                | App\Http\Middleware\IsEmailVerified                                |
+|        |          |                                     |                     |                                                                | App\Http\Middleware\Authenticate:sanctum                           |
+|        | POST     | api/auth/reset                      |                     | App\Http\Controllers\Auth\AuthController@reset                 | api                                                                |
+|        | GET|HEAD | api/auth/reset                      | password.reset      | Illuminate\Routing\ViewController                              | api                                                                |
+|        | GET|HEAD | api/v1/users                        |                     | App\Http\Controllers\Api\V1\User\UserController@index          | api                                                                |
+|        |          |                                     |                     |                                                                | App\Http\Middleware\Authenticate:sanctum                           |
+|        |          |                                     |                     |                                                                | Illuminate\Auth\Middleware\Authorize:view-any,App\Models\User\User |
+|        | POST     | api/v1/users                        |                     | App\Http\Controllers\Api\V1\User\UserController@store          | api                                                                |
+|        |          |                                     |                     |                                                                | App\Http\Middleware\DbBeginTransaction                             |
+|        | GET|HEAD | api/v1/users/{user}                 |                     | App\Http\Controllers\Api\V1\User\UserController@show           | api                                                                |
+|        |          |                                     |                     |                                                                | App\Http\Middleware\Authenticate:sanctum                           |
+|        |          |                                     |                     |                                                                | Illuminate\Auth\Middleware\Authorize:view,user                     |
+|        | PATCH    | api/v1/users/{user}                 |                     | App\Http\Controllers\Api\V1\User\UserController@update         | api                                                                |
+|        |          |                                     |                     |                                                                | App\Http\Middleware\Authenticate:sanctum                           |
+|        |          |                                     |                     |                                                                | Illuminate\Auth\Middleware\Authorize:update,user                   |
+|        |          |                                     |                     |                                                                | App\Http\Middleware\DbBeginTransaction                             |
+|        | DELETE   | api/v1/users/{user}                 |                     | App\Http\Controllers\Api\V1\User\UserController@destroy        | api                                                                |
+|        |          |                                     |                     |                                                                | App\Http\Middleware\Authenticate:sanctum                           |
+|        |          |                                     |                     |                                                                | Illuminate\Auth\Middleware\Authorize:delete,user                   |
+|        |          |                                     |                     |                                                                | App\Http\Middleware\DbBeginTransaction                             |
+|        | PATCH    | api/v1/users/{user}/update-password |                     | App\Http\Controllers\Api\V1\User\UserController@updatePassword | api                                                                |
+|        |          |                                     |                     |                                                                | App\Http\Middleware\Authenticate:sanctum                           |
+|        |          |                                     |                     |                                                                | Illuminate\Auth\Middleware\Authorize:update,user                   |
+|        |          |                                     |                     |                                                                | App\Http\Middleware\DbBeginTransaction                             |
+|        | POST     | api/verify/resend                   |                     | App\Http\Controllers\Verify\VerifyController@resend            | api                                                                |
+|        |          |                                     |                     |                                                                | App\Http\Middleware\Authenticate:sanctum                           |
+|        | GET|HEAD | api/verify/{id}/{hash}              | verification.verify | App\Http\Controllers\Verify\VerifyController@verify            | api                                                                |
+|        | GET|HEAD | sanctum/csrf-cookie                 |                     | Laravel\Sanctum\Http\Controllers\CsrfCookieController@show     | web                                                                |
++--------+----------+-------------------------------------+---------------------+----------------------------------------------------------------+--------------------------------------------------------------------+
