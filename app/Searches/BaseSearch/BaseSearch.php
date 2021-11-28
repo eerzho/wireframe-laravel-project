@@ -74,11 +74,11 @@ abstract class BaseSearch
 
         if (in_array($this->sort, $this->getSorts())) {
 
-            if ($isDesc = substr($this->sort, 0, 1) == '-') {
+            if ($isDesc = str_starts_with($this->sort, '-')) {
                 $this->sort = substr($this->sort, 1, strlen($this->sort));
             }
 
-            $this->builder->orderBy($this->sort, $isDesc ? 'asc' : 'desc');
+            $this->builder->orderBy($this->sort, $isDesc ? 'desc' : 'asc');
         }
 
         return $this->builder;
