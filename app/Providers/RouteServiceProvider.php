@@ -68,7 +68,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::prefix(self::API_V1_PREFIX)
             ->middleware(['api', 'auth:sanctum'])
-            ->group(base_path('routes/api/private/private.php'));
+            ->group(base_path('routes/api/v1/private/private.php'));
     }
 
     /**
@@ -78,7 +78,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::prefix(self::API_V1_PREFIX)
             ->middleware('api')
-            ->group(base_path('routes/api/public/public.php'));
+            ->group(base_path('routes/api/v1/public/public.php'));
     }
 
     /**
