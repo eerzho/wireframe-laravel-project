@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Api\User;
+namespace App\Http\Controllers\Api\V1\User;
 
 use App\Components\Request\DataTransfer;
 use App\Constants\Messages\ExceptionMessage;
+use App\Events\DeleteToken;
 use App\Exceptions\NotDoneException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UserStoreRequest;
@@ -32,7 +33,6 @@ class UserController extends Controller
     public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
-        $this->middleware('auth:sanctum')->except(['store']);
         $this->middleware('begin.transaction')
             ->only(['store', 'update', 'destroy', 'updatePassword']);
     }
@@ -45,8 +45,6 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $this->authorize('view-any', User::class);
-
         $builder = $this->userRepository->search($request)->getQuery();
 
         return UserResource::collection($builder->paginate());
@@ -81,8 +79,6 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $this->authorize('view', $user);
-
         return new  UserResource($user);
     }
 
@@ -95,8 +91,6 @@ class UserController extends Controller
      */
     public function update(UserUpdateRequest $request, User $user)
     {
-        $this->authorize('update', $user);
-
         $isSave = (new UserUpdateService($user, new DataTransfer($request->validated())))->run();
 
         if ($isSave) {
@@ -117,8 +111,6 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $this->authorize('delete', $user);
-
         if ($user->delete()) {
 
             DB::commit();
@@ -138,13 +130,13 @@ class UserController extends Controller
      */
     public function updatePassword(UserUpdatePasswordRequest $request, User $user)
     {
-        $this->authorize('update', $user);
-
         $isSave = (new UserUpdatePasswordService($user, new DataTransfer($request->validated())))->run();
 
         if ($isSave) {
 
             DB::commit();
+
+            event(new DeleteToken($user));
 
             return $this->response([]);
         }

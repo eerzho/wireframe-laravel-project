@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Auth;
+namespace App\Http\Controllers\Auth;
 
 use App\Components\Request\DataTransfer;
 use App\Constants\Messages\ExceptionMessage;
@@ -26,9 +26,7 @@ class AuthController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:sanctum')->only(['me', 'logout']);
         $this->middleware('begin.transaction')->only(['login', 'logout']);
-        $this->middleware('email.verified')->only(['me']);
     }
 
     /**

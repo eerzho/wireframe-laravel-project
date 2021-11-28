@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use App\Constants\Messages\ExceptionMessage;
 use App\Interfaces\BaseException\BaseExceptionInterface;
+use App\Providers\RouteServiceProvider;
 use App\Traits\ResponseTrait;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
@@ -44,7 +45,7 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->renderable(function (Throwable $exception, Request $request) {
-            if ($request->is('api/*')) {
+            if ($request->is(RouteServiceProvider::API_PREFIX . '/*')) {
                 if ($exception instanceof NotFoundHttpException) {
                     return $this->response([
                         'message' => 'Not Found'

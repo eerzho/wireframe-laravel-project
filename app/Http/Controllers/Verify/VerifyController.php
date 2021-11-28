@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Verify;
+namespace App\Http\Controllers\Verify;
 
 use App\Constants\Messages\ExceptionMessage;
 use App\Exceptions\NotDoneException;
@@ -11,11 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 class VerifyController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:sanctum')->only(['resend']);
-    }
-
     /**
      * @param EmailVerificationRequest $request
      * @param                          $id

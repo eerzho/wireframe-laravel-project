@@ -10,47 +10,20 @@ use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    /**
-     * The path to the "home" route for your application.
-     *
-     * This is used by Laravel authentication to redirect users after login.
-     *
-     * @var string
-     */
-    public const HOME = '/home';
-
-    /**
-     * The controller namespace for the application.
-     *
-     * When present, controller route declarations will automatically be prefixed with this namespace.
-     *
-     * @var string|null
-     */
-    // protected $namespace = 'App\\Http\\Controllers';
+    const API_PREFIX    = 'api';
+    const API_V1_PREFIX = self::API_PREFIX . '/v1';
+    const HOME          = '/';
 
     private array $integerRoute = [
         'user'
     ];
 
     /**
-     * Define your route model bindings, pattern filters, etc.
-     *
      * @return void
      */
     public function boot()
     {
         $this->configureRateLimiting();
-
-        $this->routes(function () {
-            Route::prefix('api')
-                ->middleware('api')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/api.php'));
-
-            Route::middleware('web')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/web.php'));
-        });
 
         foreach ($this->integerRoute as $item) {
             Route::pattern($item, '[0-9]+');
@@ -58,8 +31,6 @@ class RouteServiceProvider extends ServiceProvider
     }
 
     /**
-     * Configure the rate limiters for the application.
-     *
      * @return void
      */
     protected function configureRateLimiting()
@@ -67,5 +38,66 @@ class RouteServiceProvider extends ServiceProvider
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
         });
+    }
+
+    /**
+     * @return void
+     */
+    public function map()
+    {
+        $this->mapWeb();
+        $this->mapApiPrivate();
+        $this->mapApiPublic();
+        $this->mapAuth();
+        $this->mapVerify();
+    }
+
+    /**
+     * @return void
+     */
+    public function mapWeb()
+    {
+        Route::middleware('web')
+            ->group(base_path('routes/web.php'));
+    }
+
+    /**
+     * @return void
+     */
+    public function mapApiPrivate()
+    {
+        Route::prefix(self::API_V1_PREFIX)
+            ->middleware(['api', 'auth:sanctum'])
+            ->group(base_path('routes/api/private/private.php'));
+    }
+
+    /**
+     * @return void
+     */
+    public function mapApiPublic()
+    {
+        Route::prefix(self::API_V1_PREFIX)
+            ->middleware('api')
+            ->group(base_path('routes/api/public/public.php'));
+    }
+
+    /**
+     * @return void
+     */
+    public function mapAuth()
+    {
+        Route::prefix(self::API_PREFIX . '/auth')
+            ->middleware('api')
+            ->group(base_path('routes/auth.php'));
+    }
+
+    /**
+     * @return void
+     */
+    public function mapVerify()
+    {
+        Route::prefix(self::API_PREFIX . '/verify')
+            ->middleware('api')
+            ->group(base_path('routes/verify.php'));
     }
 }
