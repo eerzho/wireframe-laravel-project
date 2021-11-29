@@ -5,6 +5,7 @@ namespace App\Http\Resources\BaseResource;
 use App\Components\DateFormat\DateFormatHelper;
 use Carbon\Carbon;
 use DateTimeInterface;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -24,13 +25,21 @@ abstract class BaseResource extends JsonResource
 
         $result = [];
         foreach ($fields as $key => $field) {
+
             if (class_exists($field)) {
-                $result[$key] = new $field($this->$key);
+
+                $result[$key] = $this->$key instanceof Collection ?
+                    $field::collection($this->$key) :
+                    new $field($this->$key);
+
             } elseif ($this->$field instanceof DateTimeInterface) {
+
                 /** @var Carbon $date */
                 $date = $this->$field;
                 $result[$field] = $date->format(DateFormatHelper::DATETIME_FORMAT);
+
             } else {
+
                 $result[$field] = $this->$field;
             }
         }

@@ -3,6 +3,7 @@
 namespace App\Http\Resources\User;
 
 use App\Http\Resources\BaseResource\BaseResource;
+use App\Http\Resources\Role\RoleResource;
 
 class UserResource extends BaseResource
 {
@@ -17,7 +18,8 @@ class UserResource extends BaseResource
             'last_name',
             'username',
             'email',
-            'created_at'
+            'created_at',
+            'roles' => RoleResource::class,
         ];
     }
 }
