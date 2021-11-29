@@ -2,6 +2,7 @@
 
 namespace App\Models\User\Checkers;
 
+use App\Constants\Roles\RoleConst;
 use App\Models\User\User;
 
 class UserChecker
@@ -21,6 +22,6 @@ class UserChecker
      */
     public function isAdmin()
     {
-        return $this->user->id == 1;
+        return $this->user->roles()->where('value', RoleConst::ADMIN)->exists();
     }
 }

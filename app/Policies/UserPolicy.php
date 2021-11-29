@@ -36,16 +36,6 @@ class UserPolicy
 
     /**
      * @param User $user
-     *
-     * @return Response
-     */
-    public function create(User $user)
-    {
-        return Response::deny(AccessDeniedMessage::CREATE);
-    }
-
-    /**
-     * @param User $user
      * @param User $model
      *
      * @return Response
@@ -68,5 +58,16 @@ class UserPolicy
         return $user->id == $model->id ?
             Response::allow() :
             Response::deny(AccessDeniedMessage::DELETE);
+    }
+
+    /**
+     * @param User $user
+     * @param User $model
+     *
+     * @return Response
+     */
+    public function editRole(User $user, User $model)
+    {
+        return Response::deny(AccessDeniedMessage::UPDATE);
     }
 }

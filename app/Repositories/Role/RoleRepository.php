@@ -27,4 +27,14 @@ class RoleRepository extends BaseRepository implements SearchInterface
     {
         return new RoleSearch($request);
     }
+
+    /**
+     * @param int $value
+     *
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model
+     */
+    public function getByValue(int $value)
+    {
+        return $this->startQuery()->where('value', $value)->firstOrFail();
+    }
 }
