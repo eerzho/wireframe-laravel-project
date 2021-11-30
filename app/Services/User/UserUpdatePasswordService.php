@@ -2,9 +2,9 @@
 
 namespace App\Services\User;
 
-use App\Components\Request\DataTransfer;
 use App\Models\User\User;
-use App\Services\BaseService\BaseService;
+use Eerzho\LaravelComponents\Components\Request\DataTransfer;
+use Eerzho\LaravelComponents\Services\BaseService\BaseService;
 use Illuminate\Support\Facades\Hash;
 
 /**

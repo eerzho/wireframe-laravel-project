@@ -2,10 +2,10 @@
 
 namespace App\Repositories\User;
 
-use App\Interfaces\Search\SearchInterface;
 use App\Models\User\User;
-use App\Repositories\BaseRepository\BaseRepository;
 use App\Searches\User\UserSearch;
+use Eerzho\LaravelComponents\Interfaces\Search\SearchInterface;
+use Eerzho\LaravelComponents\Repositories\BaseRepository\BaseRepository;
 use Illuminate\Http\Request;
 
 class UserRepository extends BaseRepository implements SearchInterface

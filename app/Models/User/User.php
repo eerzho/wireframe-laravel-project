@@ -2,12 +2,12 @@
 
 namespace App\Models\User;
 
-use App\Components\DateFormat\DateFormatHelper;
-use App\Interfaces\Morphable\MorphableInterface;
 use App\Models\Role\Role;
 use App\Models\User\Checkers\UserChecker;
-use App\Traits\ScopeOfId;
 use Carbon\Carbon;
+use Eerzho\LaravelComponents\Components\DateFormat\DateFormatHelper;
+use Eerzho\LaravelComponents\Interfaces\Morphable\MorphableInterface;
+use Eerzho\LaravelComponents\Traits\ScopeOfId;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

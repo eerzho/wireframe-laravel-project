@@ -3,7 +3,7 @@
 namespace App\Searches\Role;
 
 use App\Models\Role\Role;
-use App\Searches\BaseSearch\BaseSearch;
+use Eerzho\LaravelComponents\Searches\BaseSearch\BaseSearch;
 
 class RoleSearch extends BaseSearch
 {

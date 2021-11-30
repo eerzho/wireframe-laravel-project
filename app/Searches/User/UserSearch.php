@@ -3,7 +3,7 @@
 namespace App\Searches\User;
 
 use App\Models\User\User;
-use App\Searches\BaseSearch\BaseSearch;
+use Eerzho\LaravelComponents\Searches\BaseSearch\BaseSearch;
 
 class UserSearch extends BaseSearch
 {

@@ -2,9 +2,9 @@
 
 namespace App\Services\Auth;
 
-use App\Components\Request\DataTransfer;
-use App\Interfaces\Morphable\MorphableInterface;
-use App\Services\BaseService\BaseService;
+use Eerzho\LaravelComponents\Components\Request\DataTransfer;
+use Eerzho\LaravelComponents\Interfaces\Morphable\MorphableInterface;
+use Eerzho\LaravelComponents\Services\BaseService\BaseService;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\PersonalAccessToken;
 

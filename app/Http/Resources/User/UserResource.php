@@ -2,8 +2,8 @@
 
 namespace App\Http\Resources\User;
 
-use App\Http\Resources\BaseResource\BaseResource;
 use App\Http\Resources\Role\RoleResource;
+use Eerzho\LaravelComponents\Http\Resources\BaseResource\BaseResource;
 
 class UserResource extends BaseResource
 {
