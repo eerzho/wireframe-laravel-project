@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Auth;
 
-use App\Http\Requests\BaseFromRequest\BaseFromRequest;
+use Eerzho\LaravelComponents\Http\Requests\BaseFromRequest\BaseFromRequest;
 
 class AuthResetRequest extends BaseFromRequest
 {

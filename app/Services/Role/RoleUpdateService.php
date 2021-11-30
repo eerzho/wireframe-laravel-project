@@ -2,9 +2,9 @@
 
 namespace App\Services\Role;
 
-use App\Components\Request\DataTransfer;
 use App\Models\Role\Role;
-use App\Services\BaseService\BaseService;
+use Eerzho\LaravelComponents\Components\Request\DataTransfer;
+use Eerzho\LaravelComponents\Services\BaseService\BaseService;
 
 /**
  * @property Role         $role

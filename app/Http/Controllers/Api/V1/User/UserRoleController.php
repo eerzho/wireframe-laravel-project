@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Api\V1\User;
 
-use App\Components\Request\DataTransfer;
 use App\Constants\Messages\ExceptionMessage;
 use App\Exceptions\NotDoneException;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UserRoleAttachRequest;
 use App\Http\Requests\User\UserRoleDetachRequest;
 use App\Models\User\User;
 use App\Services\User\UserRoleAttachService;
 use App\Services\User\UserRoleDetachService;
+use Eerzho\LaravelComponents\Components\Request\DataTransfer;
+use Eerzho\LaravelComponents\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
 class UserRoleController extends Controller

@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\User;
 
-use App\Http\Requests\BaseFromRequest\BaseFromRequest;
+use Eerzho\LaravelComponents\Http\Requests\BaseFromRequest\BaseFromRequest;
 use Illuminate\Validation\Rule;
 
 class UserStoreRequest extends BaseFromRequest

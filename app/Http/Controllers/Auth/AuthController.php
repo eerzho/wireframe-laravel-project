@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Components\Request\DataTransfer;
 use App\Constants\Messages\ExceptionMessage;
 use App\Events\DeleteToken;
 use App\Exceptions\NotDoneException;
 use App\Exceptions\UnauthorizedException;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\AuthForgotRequest;
 use App\Http\Requests\Auth\AuthLoginRequest;
 use App\Http\Requests\Auth\AuthResetRequest;
@@ -15,6 +13,8 @@ use App\Http\Resources\User\UserResource;
 use App\Models\User\User;
 use App\Repositories\User\UserRepository;
 use App\Services\Auth\TokenStoreService;
+use Eerzho\LaravelComponents\Components\Request\DataTransfer;
+use Eerzho\LaravelComponents\Http\Controllers\Controller;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
