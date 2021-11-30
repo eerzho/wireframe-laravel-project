@@ -2,10 +2,10 @@
 
 namespace App\Repositories\Role;
 
+use App\Interfaces\Search\SearchInterface;
 use App\Models\Role\Role;
+use App\Repositories\BaseRepository\BaseRepository;
 use App\Searches\Role\RoleSearch;
-use Eerzho\LaravelComponents\Interfaces\Search\SearchInterface;
-use Eerzho\LaravelComponents\Repositories\BaseRepository\BaseRepository;
 use Illuminate\Http\Request;
 
 class RoleRepository extends BaseRepository implements SearchInterface

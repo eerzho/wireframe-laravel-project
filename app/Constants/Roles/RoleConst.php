@@ -2,7 +2,7 @@
 
 namespace App\Constants\Roles;
 
-use Eerzho\LaravelComponents\Constants\BaseConst\BaseConst;
+use App\Constants\BaseConst\BaseConst;
 
 class RoleConst extends BaseConst
 {

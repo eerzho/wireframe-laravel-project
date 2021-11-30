@@ -3,9 +3,9 @@
 namespace App\Exceptions;
 
 use App\Constants\Messages\ExceptionMessage;
+use App\Interfaces\BaseException\BaseExceptionInterface;
 use App\Providers\RouteServiceProvider;
-use Eerzho\LaravelComponents\Interfaces\BaseException\BaseExceptionInterface;
-use Eerzho\LaravelComponents\Traits\ResponseTrait;
+use App\Traits\ResponseTrait;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Request;

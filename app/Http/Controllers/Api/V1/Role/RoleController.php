@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Api\V1\Role;
 
+use App\Components\Request\DataTransfer;
 use App\Constants\Messages\ExceptionMessage;
 use App\Exceptions\NotDoneException;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Role\RoleUpdateRequest;
 use App\Http\Resources\Role\RoleResource;
 use App\Models\Role\Role;
 use App\Repositories\Role\RoleRepository;
 use App\Services\Role\RoleUpdateService;
-use Eerzho\LaravelComponents\Components\Request\DataTransfer;
-use Eerzho\LaravelComponents\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

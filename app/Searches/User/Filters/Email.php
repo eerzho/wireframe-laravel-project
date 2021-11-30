@@ -2,7 +2,7 @@
 
 namespace App\Searches\User\Filters;
 
-use Eerzho\LaravelComponents\Interfaces\Filter\FilterInterface;
+use App\Interfaces\Filter\FilterInterface;
 use Illuminate\Database\Eloquent\Builder;
 
 class Email implements FilterInterface

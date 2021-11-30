@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Api\V1\User;
 
+use App\Components\Request\DataTransfer;
 use App\Constants\Messages\ExceptionMessage;
 use App\Events\DeleteToken;
 use App\Exceptions\NotDoneException;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UserStoreRequest;
 use App\Http\Requests\User\UserUpdatePasswordRequest;
 use App\Http\Requests\User\UserUpdateRequest;
@@ -14,8 +16,6 @@ use App\Repositories\User\UserRepository;
 use App\Services\User\UserStoreService;
 use App\Services\User\UserUpdatePasswordService;
 use App\Services\User\UserUpdateService;
-use Eerzho\LaravelComponents\Components\Request\DataTransfer;
-use Eerzho\LaravelComponents\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;

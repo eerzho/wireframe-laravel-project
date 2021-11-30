@@ -7,7 +7,6 @@
     "require": {
         "php": "8.*",
         "ext-json": "*",
-        "eerzho/laravel-components": "dev-main",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",

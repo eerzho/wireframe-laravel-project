@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Verify;
 
 use App\Constants\Messages\ExceptionMessage;
 use App\Exceptions\NotDoneException;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Verify\EmailVerificationRequest;
 use App\Models\User\User;
-use Eerzho\LaravelComponents\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class VerifyController extends Controller

@@ -2,8 +2,8 @@
 
 namespace App\Models\Role;
 
+use App\Models\BaseModel\BaseModel;
 use App\Models\User\User;
-use Eerzho\LaravelComponents\Models\BaseModel\BaseModel;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 

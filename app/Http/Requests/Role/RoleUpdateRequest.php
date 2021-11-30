@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Role;
 
+use App\Http\Requests\BaseFromRequest\BaseFromRequest;
 use App\Models\Role\Role;
-use Eerzho\LaravelComponents\Http\Requests\BaseFromRequest\BaseFromRequest;
 use Illuminate\Validation\Rule;
 
 /**
