@@ -2,8 +2,8 @@
 
 namespace Database\Factories\User;
 
-use App\Components\UniqueValue\MakeUniqueValue;
 use App\Models\User\User;
+use Eerzho\LaravelComponents\Components\UniqueValue\MakeUniqueValue;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 

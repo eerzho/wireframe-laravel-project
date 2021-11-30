@@ -2,14 +2,14 @@
 
 namespace Database\Seeders\User;
 
-use App\Components\Request\DataTransfer;
-use App\Components\UniqueValue\MakeUniqueValue;
 use App\Constants\Roles\RoleConst;
 use App\Models\Role\Role;
 use App\Models\User\User;
 use App\Repositories\Role\RoleRepository;
 use App\Services\User\UserRoleAttachService;
 use App\Services\User\UserRoleDetachService;
+use Eerzho\LaravelComponents\Components\Request\DataTransfer;
+use Eerzho\LaravelComponents\Components\UniqueValue\MakeUniqueValue;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
