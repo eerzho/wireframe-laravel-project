@@ -1,0 +1,15 @@
+<?php
+
+namespace {{ namespace }};
+
+use Eerzho\LaravelComponents\Http\Requests\BaseFromRequest\BaseFromRequest;
+
+class {{ class }} extends BaseFromRequest
+{
+    public function rules(): array
+    {
+        return [
+            //
+        ];
+    }
+}

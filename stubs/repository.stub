@@ -1,0 +1,28 @@
+<?php
+
+namespace DummyNamespace;
+
+use Eerzho\LaravelComponents\Interfaces\Search\SearchInterface;
+use Eerzho\LaravelComponents\Repositories\BaseRepository\BaseRepository;
+use Illuminate\Http\Request;
+
+class DummyClass extends BaseRepository implements SearchInterface
+{
+    /**
+     * @return string
+     */
+    public function getModel(): string
+    {
+        //
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return
+     */
+    public function search(Request $request)
+    {
+        //
+    }
+}

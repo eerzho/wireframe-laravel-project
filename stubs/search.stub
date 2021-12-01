@@ -1,0 +1,39 @@
+<?php
+
+namespace {{ namespace }};
+
+use Eerzho\LaravelComponents\Searches\BaseSearch\BaseSearch;
+
+class DummyClass extends BaseSearch
+{
+    /**
+     * @return string
+     */
+    protected function getNamespace(): string
+    {
+        return __NAMESPACE__;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getModel(): string
+    {
+        //
+    }
+
+    /**
+     * @return string[]
+     */
+    protected function getSorts(): array
+    {
+        return [
+            'id',
+            '-id',
+            'created_at',
+            '-created_at',
+            'updated_at',
+            '-updated_at',
+        ];
+    }
+}

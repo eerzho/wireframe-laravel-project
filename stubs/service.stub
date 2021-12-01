@@ -1,0 +1,17 @@
+<?php
+
+namespace {{ namespace }};
+
+use Eerzho\LaravelComponents\Components\Request\DataTransfer;
+use Eerzho\LaravelComponents\Services\BaseService\BaseService;
+
+class DummyClass extends BaseService
+{
+    /**
+     * @return bool
+     */
+    public function run(): bool
+    {
+        //
+    }
+}

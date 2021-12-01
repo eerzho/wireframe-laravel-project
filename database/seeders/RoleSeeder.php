@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders\Role;
+namespace Database\Seeders;
 
 use App\Constants\Roles\RoleConst;
 use App\Models\Role\Role;
