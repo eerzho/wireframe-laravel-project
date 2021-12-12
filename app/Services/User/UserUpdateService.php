@@ -4,13 +4,13 @@ namespace App\Services\User;
 
 use App\Models\User\User;
 use Eerzho\LaravelComponents\Components\Request\DataTransfer;
-use Eerzho\LaravelComponents\Services\BaseService\BaseService;
+use Eerzho\LaravelComponents\Interfaces\BaseService\BaseService;
 
 /**
  * @property User         $user
  * @property DataTransfer $request
  */
-class UserUpdateService extends BaseService
+class UserUpdateService implements BaseService
 {
     private User $user;
     private DataTransfer $request;

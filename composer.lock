@@ -435,12 +435,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/eerzho/laravel-components.git",
-                "reference": "638c579eede12b392eceeefde92332143f0a9589"
+                "reference": "53a328f94778393a2105783ddbef7e781840c432"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eerzho/laravel-components/zipball/638c579eede12b392eceeefde92332143f0a9589",
-                "reference": "638c579eede12b392eceeefde92332143f0a9589",
+                "url": "https://api.github.com/repos/eerzho/laravel-components/zipball/53a328f94778393a2105783ddbef7e781840c432",
+                "reference": "53a328f94778393a2105783ddbef7e781840c432",
                 "shasum": ""
             },
             "require": {
@@ -480,7 +480,7 @@
                 "issues": "https://github.com/eerzho/laravel-components/issues",
                 "source": "https://github.com/eerzho/laravel-components/tree/main"
             },
-            "time": "2021-12-12T21:49:57+00:00"
+            "time": "2021-12-12T22:02:21+00:00"
         },
         {
             "name": "egulias/email-validator",

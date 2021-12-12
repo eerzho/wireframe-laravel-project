@@ -4,13 +4,13 @@ namespace App\Services\Role;
 
 use App\Models\Role\Role;
 use Eerzho\LaravelComponents\Components\Request\DataTransfer;
-use Eerzho\LaravelComponents\Services\BaseService\BaseService;
+use Eerzho\LaravelComponents\Interfaces\BaseService\BaseService;
 
 /**
  * @property Role         $role
  * @property DataTransfer $request
  */
-class RoleUpdateService extends BaseService
+class RoleUpdateService implements BaseService
 {
     private Role $role;
     private DataTransfer $request;

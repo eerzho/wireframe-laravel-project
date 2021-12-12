@@ -3,8 +3,8 @@
 namespace App\Services\Auth;
 
 use Eerzho\LaravelComponents\Components\Request\DataTransfer;
+use Eerzho\LaravelComponents\Interfaces\BaseService\BaseService;
 use Eerzho\LaravelComponents\Interfaces\Morphable\MorphableInterface;
-use Eerzho\LaravelComponents\Services\BaseService\BaseService;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\PersonalAccessToken;
 
@@ -14,7 +14,7 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @property MorphableInterface  $morphable
  * @property string              $plainTextToken
  */
-class TokenStoreService extends BaseService
+class TokenStoreService implements BaseService
 {
     private PersonalAccessToken $personalAccessToken;
     private DataTransfer $request;
