@@ -4,6 +4,7 @@ namespace App\Repositories\User;
 
 use App\Models\User\User;
 use App\Searches\User\UserSearch;
+use Eerzho\LaravelComponents\Components\Request\DataTransfer;
 use Eerzho\LaravelComponents\Interfaces\Search\SearchInterface;
 use Eerzho\LaravelComponents\Repositories\BaseRepository\BaseRepository;
 use Illuminate\Http\Request;
@@ -25,7 +26,9 @@ class UserRepository extends BaseRepository implements SearchInterface
      */
     public function search(Request $request)
     {
-        return new UserSearch($request);
+        $data = new DataTransfer($request->query());
+
+        return new UserSearch($data);
     }
 
     /**

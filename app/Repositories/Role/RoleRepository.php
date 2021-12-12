@@ -4,6 +4,7 @@ namespace App\Repositories\Role;
 
 use App\Models\Role\Role;
 use App\Searches\Role\RoleSearch;
+use Eerzho\LaravelComponents\Components\Request\DataTransfer;
 use Eerzho\LaravelComponents\Interfaces\Search\SearchInterface;
 use Eerzho\LaravelComponents\Repositories\BaseRepository\BaseRepository;
 use Illuminate\Http\Request;
@@ -25,7 +26,9 @@ class RoleRepository extends BaseRepository implements SearchInterface
      */
     public function search(Request $request)
     {
-        return new RoleSearch($request);
+        $data = new DataTransfer($request->query());
+
+        return new RoleSearch($data);
     }
 
     /**
