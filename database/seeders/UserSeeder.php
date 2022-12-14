@@ -16,6 +16,9 @@ class UserSeeder extends Seeder
 {
     public function run()
     {
+        $dispatcher = User::getEventDispatcher();
+        User::unsetEventDispatcher();
+
         /** @var Role $userRole */
         $userRole = app(RoleRepository::class)->getByValue(RoleConst::USER);
         /** @var Role $adminRole */
@@ -27,6 +30,8 @@ class UserSeeder extends Seeder
 
         self::customizeUser($users->get(0), 'eerzho', [$adminRole->id]);
         self::customizeUser($users->get(1), 'eerzho');
+
+        User::setEventDispatcher($dispatcher);
     }
 
     /**
